@@ -1,0 +1,12 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+
+# Local databases
+*.db
+*.db-journal
+
+# Environment variables
+.env

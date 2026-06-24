@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroScale - High-Speed Pagination Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Glowing Background Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="main-header">
+      <div class="logo-area">
+        <span class="logo-icon">⚡</span>
+        <div>
+          <h1>AeroScale</h1>
+          <p class="tagline">Ultra-Fast Cursor Pagination Engine</p>
+        </div>
+      </div>
+      <div class="db-badge-container">
+        <span class="badge-label">Active Database:</span>
+        <span id="db-badge" class="db-badge sqlite">Detecting...</span>
+      </div>
+    </header>
+
+    <!-- Metrics Grid -->
+    <section class="metrics-grid">
+      <div class="metric-card glass">
+        <div class="metric-info">
+          <h3>Query Latency</h3>
+          <p class="metric-value"><span id="query-latency">-</span> <span class="unit">ms</span></p>
+        </div>
+        <div class="metric-icon latency-icon">⏱️</div>
+        <p class="metric-desc">O(1) B-Tree Index Seek latency</p>
+      </div>
+
+      <div class="metric-card glass">
+        <div class="metric-info">
+          <h3>Active Cursor</h3>
+          <p class="metric-value cursor-value" id="current-cursor" title="Hover to decode">None</p>
+        </div>
+        <div class="metric-icon cursor-icon">🔑</div>
+        <p class="metric-desc">Base64 encoded (Timestamp + ID)</p>
+      </div>
+
+      <div class="metric-card glass">
+        <div class="metric-info">
+          <h3>Session Total</h3>
+          <p class="metric-value"><span id="loaded-count">0</span> <span class="unit">items</span></p>
+        </div>
+        <div class="metric-icon total-icon">📦</div>
+        <p class="metric-desc">Total products rendered</p>
+      </div>
+    </section>
+
+    <!-- Control Center & SQL Console -->
+    <section class="control-panel glass">
+      <div class="simulator-panel">
+        <div class="panel-header">
+          <h2>⚡ Concurrent Ingestion Simulator</h2>
+          <span class="status-indicator"></span>
+        </div>
+        <p class="panel-text">
+          Simulate background activity by inserting 50 new items with newer timestamps. 
+          Observe how the cursor-based pagination remains perfectly consistent, avoiding duplicated or skipped products.
+        </p>
+        <button id="btn-simulate" class="btn-simulate">
+          <span class="btn-icon">⚡</span> Inject 50 New Products
+        </button>
+      </div>
+
+      <div class="sql-console">
+        <div class="panel-header">
+          <h2>💻 Live SQL Execution Console</h2>
+          <span class="badge-console">Telemetry</span>
+        </div>
+        <div class="console-body">
+          <code id="sql-query">-- SQL query will appear here when you fetch data</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Filter Navigation -->
+    <nav class="category-nav glass">
+      <button class="cat-pill active" data-category="">All Categories</button>
+      <button class="cat-pill" data-category="Electronics">Electronics</button>
+      <button class="cat-pill" data-category="Clothing">Clothing</button>
+      <button class="cat-pill" data-category="Books">Books</button>
+      <button class="cat-pill" data-category="Home & Kitchen">Home & Kitchen</button>
+      <button class="cat-pill" data-category="Beauty">Beauty</button>
+      <button class="cat-pill" data-category="Sports">Sports</button>
+    </nav>
+
+    <!-- Product Grid -->
+    <main class="products-section">
+      <div id="products-grid" class="products-grid">
+        <!-- Products will load dynamically -->
+      </div>
+
+      <!-- Load More / Spinner area -->
+      <div class="pagination-footer">
+        <button id="btn-load-more" class="btn-load-more glass">
+          <span>Load Next Page</span>
+          <span class="loading-spinner hidden"></span>
+        </button>
+        <p id="end-message" class="end-message hidden">🏁 Reached the end of the database (~200,000 products).</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden">
+    <div class="toast-content">
+      <span class="toast-icon">🚀</span>
+      <div class="toast-text-container">
+        <h4 id="toast-title">Simulation Active</h4>
+        <p id="toast-message">50 products successfully inserted at the top of the database.</p>
+      </div>
+    </div>
+    <button class="toast-close">&times;</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
