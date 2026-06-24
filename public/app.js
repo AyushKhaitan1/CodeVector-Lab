@@ -129,7 +129,7 @@ async function fetchProducts(append = false) {
           </div>
           <div class="product-body">
             <h4 class="prod-name" title="${product.name}">${product.name}</h4>
-            <div class="prod-price">$${product.price.toFixed(2)}</div>
+            <div class="prod-price">$${parseFloat(product.price).toFixed(2)}</div>
           </div>
           <div class="product-footer">
             <div class="meta-row">
